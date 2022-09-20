@@ -1,0 +1,15 @@
+*.hex
+*.rel
+*.map
+*.o
+*.mem
+*.sym
+*.lk
+*.ihx
+*.lst
+*.rst
+*.adb
+*.cdb
+*.omf
+build/
+
