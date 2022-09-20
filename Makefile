@@ -1,7 +1,8 @@
 CC=sdcc
 NO_OPT=--nogcse --noinvariant --noinduction --nojtbound --noloopreverse --nolabelopt --nooverlay --peep-asm
 DEBUG=--debug
-OUT_DIR = build
+OUT_DIR = out
+SRC_DIR = src
 
 CFLAGS=--model-large -I./include \
 		-DSDCC_CYGNAL $(DEBUG) --less-pedantic --xram-size 4096 --stack-auto \
@@ -18,14 +19,13 @@ port.c
 
 OBJ = $(SRC:.c=.rel)
 
-main : main.c Makefile ./include/portmacro.h $(OBJ)
-	$(CC) $(CFLAGS) -o $(OUT_DIR)/$@.ihx main.c $(addprefix $(OUT_DIR)/,$(OBJ))
+main : $(SRC_DIR)/main.c Makefile ./include/portmacro.h $(OBJ)
+	$(CC) $(CFLAGS) -o $(OUT_DIR)/$@.ihx $(SRC_DIR)/main.c $(addprefix $(OUT_DIR)/,$(OBJ))
 	packihx $(OUT_DIR)/$@.ihx > $(OUT_DIR)/$@.hex
 
-%.rel : %.c Makefile ./include/portmacro.h
+%.rel : $(SRC_DIR)/%.c Makefile ./include/portmacro.h
 	$(CC) -c $(CFLAGS) -o $(OUT_DIR)/$@ $<
 
 .PHONY: clean
 clean:
-	rm -rf build/*.*
-	# rm -rf *.asm *.rel *.map *.o *.mem *.sym *.lk *.ihx *.hex *.lst *.rst *.adb *.cdb *.omf
+	rm $(OUT_DIR)/*.*
