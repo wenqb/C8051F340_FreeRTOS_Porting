@@ -1,6 +1,9 @@
 # 在C8051F340上进行的FreeRTOS移植
 ## 从FreeRTOS公版中的Demo/Cygnal下的项目开始移植
 这个是C8051F120，最接近C8051F340的。
+
+采用sdcc工具链进行编译。sdcc版本号：V4.2.0
+
 需要注意：
 1. 修改Makefile文件
 
